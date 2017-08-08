@@ -1,4 +1,4 @@
-package com.order_manager.controllers;
+package com.order_manager.api;
 
 import com.order_manager.models.User;
 import com.order_manager.services.UserService;
