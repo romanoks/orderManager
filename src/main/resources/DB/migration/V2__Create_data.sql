@@ -1,0 +1,2 @@
+delete from users where uuid = 'da723099-a503-4f80-af10-ee08dde129d9';
+insert into users (uuid, login, password, name, surname, role) VALUES ('da723099-a503-4f80-af10-ee08dde129d9', 'Admin', 'Admin', 'Admin', 'Admin', 'ADMIN');

@@ -10,6 +10,6 @@
     </resultMap>
 
     <select id="getUserByUuid" resultMap="UserMap">
-        select uuid, name, surname from public.user WHERE uuid=#{uuid}
+        select uuid, name, surname from public.users WHERE uuid=#{uuid}
     </select>
 </mapper>
