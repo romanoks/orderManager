@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    username: postgres
+    password: qwerty
+    url: jdbc:postgresql://172.17.0.2:5432/order_db
+
+mybatis:
+  mapper-locations: "classpath*:**/mybatis/mapper/*.xml"
+  type-aliases-package: com.order_manager.models
+  configuration:
+          map-underscore-to-camel-case: true
+          default-fetch-size: 100
+          default-statement-timeout: 30
