@@ -7,9 +7,54 @@
         <id column="uuid" property="uuid" />
         <result column="name" property="name" />
         <result column="surname" property="surname" />
+        <result column="login" property="login" />
+        <result column="role" property="role" />
+        <result column="count" property="count" />
     </resultMap>
 
     <select id="getUserByUuid" resultMap="UserMap">
-        select uuid, name, surname from public.users WHERE uuid=#{uuid}
+        select uuid, name, surname, login from public.users WHERE uuid=#{uuid}
     </select>
+
+    <select id="getAllUsers" resultMap="UserMap">
+        SELECT users.uuid, users.name, users.surname, users.login FROM public.users
+            <if test="paging.filter">
+              where <include refid="filter"/>
+            </if>
+          <include refid="orderBy"/>
+          <include refid="pagination"/>
+    </select>
+
+    <select id="getCountRows" resultType="java.lang.Integer">
+        SELECT count(*) count FROM public.users
+        <if test="paging.filter">
+            where <include refid="filter"/>
+        </if>
+    </select>
+
+    <sql id="filter">
+        users.name LIKE '%${paging.filter}%' or
+        users.surname LIKE '%${paging.filter}%' OR
+        users.login LIKE '%${paging.filter}%'
+    </sql>
+
+    <sql id="orderBy">
+            ORDER BY ${paging.sort_field} ${paging.sort}
+    </sql>
+
+    <sql id="pagination">
+            LIMIT ${paging.limit} OFFSET ${paging.offset}
+    </sql>
+
+    <insert id="createUser">
+        Insert into public.users VALUES (#{user.uuid}, #{user.login}, #{user.password}, #{user.name}, #{user.surname}, #{user.role})
+    </insert>
+
+    <delete id="deleteUserByUuid">
+        delete from public.users where uuid = #{uuid}
+    </delete>
+
+    <update id="updateUserByuuid">
+        update public.users set name = #{user.name}, surname = #{user.surname}, role = #{user.role}
+    </update>
 </mapper>
